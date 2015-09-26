@@ -6,9 +6,14 @@ public class WorldMovement : MonoBehaviour {
 	public GameObject cameraBox;
 	public int xCord;
 	public int yCord;
+	WorldSavedCoordinates saveData;
 	// Use this for initialization
 	void Start () {
-
+		GameObject data = GameObject.Find ("World Data Storage");
+		saveData = data.GetComponent<WorldSavedCoordinates> ();
+		xCord = saveData.GetCurrentLocationX();
+		yCord = saveData.GetCurrentLocationY();
+		positionMovement ();
 	}
 	
 	// Update is called once per frame
@@ -19,6 +24,12 @@ public class WorldMovement : MonoBehaviour {
 	public void positionMovement(){
 		Transform cameraTransform = cameraBox.GetComponent<Transform> ();
 		cameraTransform.position = new Vector3(xCord, 1, yCord);
+		saveData.SetCurrentLocation (xCord, yCord);
+	}
+	public void SetPosition(int x, int y){
+		xCord = x;
+		yCord = y;
+		positionMovement ();
 	}
 	public void xChange(){
 		GameObject xBox = GameObject.Find ("X-Cord");
