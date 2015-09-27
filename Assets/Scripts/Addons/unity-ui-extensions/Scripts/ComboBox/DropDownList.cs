@@ -13,6 +13,7 @@ namespace UnityEngine.UI.Extensions
 	[AddComponentMenu("UI/Extensions/Dropdown List")]
 	public class DropDownList : MonoBehaviour
 	{
+		CoordDropdown coordDropdown;
 		public Color disabledTextColor;
 		public DropDownListItem SelectedItem { get; private set; } //outside world gets to get this, not set it
 
@@ -72,6 +73,7 @@ namespace UnityEngine.UI.Extensions
 
 		public void Start()
 		{
+			coordDropdown = GetComponent<CoordDropdown> ();
 			Initialize();
 		}
 
@@ -120,7 +122,7 @@ namespace UnityEngine.UI.Extensions
 			return success;
 		}
 
-		/* currently just using items in the list instead of being able to add to it.
+		// currently just using items in the list instead of being able to add to it.
 		public void AddItems(params object[] list)
 		{
 			List<DropDownListItem> ddItems = new List<DropDownListItem>();
@@ -144,10 +146,9 @@ namespace UnityEngine.UI.Extensions
 				}
 			}
 			Items.AddRange(ddItems);
-			Items = Items.Distinct().ToList();//remove any duplicates
+			//Items = Items.Distinct().ToList(); //remove any duplicates
 			RebuildPanel();
 		}
-		*/
 
 		/// <summary>
 		/// Rebuilds the contents of the panel in response to items being added.
@@ -155,7 +156,7 @@ namespace UnityEngine.UI.Extensions
 		private void RebuildPanel()
 		{
 			if (Items.Count == 0) return;
-
+			try{
 			int indx = _panelItems.Count;
 			while (_panelItems.Count < Items.Count)
 			{
@@ -190,12 +191,19 @@ namespace UnityEngine.UI.Extensions
 				}
 				_panelItems[i].gameobject.SetActive(i < Items.Count);// if we have more thanks in the panel than Items in the list hide them
 			}
+			}catch (System.NullReferenceException ex){
+				
+			}
 		}
 
 		private void OnItemClicked(int indx)
 		{
-			Debug.Log("item " + indx + " clicked");
-			if (indx != _selectedIndex && OnSelectionChanged != null) OnSelectionChanged(indx);
+			//Debug.Log("item " + indx + " clicked");
+			coordDropdown.GetButtonClick(indx);
+			if (indx != _selectedIndex && OnSelectionChanged != null) {
+				Debug.Log("");
+				OnSelectionChanged (indx);
+			}
 
 			_selectedIndex = indx;
 			ToggleDropdownPanel(true);

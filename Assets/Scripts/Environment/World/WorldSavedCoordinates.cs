@@ -4,14 +4,15 @@ using System.Collections;
 public class WorldSavedCoordinates : MonoBehaviour {
 	public static int currentLocationX = 0;
 	public static int currentLocationY = 0;
-	public static int[,] cities; 	//for [i, x], i is the city identifier, x as 0 is x coord, and x as 1 is y coord
-	public static string[] cityNames; 	//for []
-	public static int[,] savedLocations; 	//for [i, x], i is the city identifier, x as 0 is x coord, and x as 1 is y coord
-	public static string[] locationNames;
+	public static int[,] cities = {{0, 0}}; 	//for [i, x], i is the city identifier, x as 0 is x coord, and x as 1 is y coord
+	public static string[] cityNames = {""}; 	//for []
+	public static int[,] savedLocations = {{2,2}}; 	//for [i, x], i is the city identifier, x as 0 is x coord, and x as 1 is y coord
+	public static string[] locationNames = {"2 Squared"};
+	public bool initFinished = false;
 
 	// Use this for initialization
 	void Start () {
-
+		initFinished = true;
 	}
 	
 	// Update is called once per frame
@@ -43,5 +44,11 @@ public class WorldSavedCoordinates : MonoBehaviour {
 	}
 	public int GetCurrentLocationY(){
 		return currentLocationY;
+	}
+	public int[,] GetSavedLocations(){
+		return savedLocations;
+	}
+	public string GetLocationName(int index){
+		return locationNames[index];
 	}
 }
