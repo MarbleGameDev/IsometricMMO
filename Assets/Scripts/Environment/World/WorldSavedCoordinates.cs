@@ -10,8 +10,11 @@ public class WorldSavedCoordinates : MonoBehaviour {
 	public static string[] locationNames = {"2 Squared"};
 	public bool initFinished = false;
 
+	void Awake(){
+		//Code to initialize values from storage here
+	}
 	// Use this for initialization
-	void Start () {
+	void Start () { 
 		initFinished = true;
 	}
 	
