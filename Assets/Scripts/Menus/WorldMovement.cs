@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class WorldMovement : MonoBehaviour {
-	public GameObject cameraBox;
+	GameObject cameraBox;
 	public int xCord;
 	public int yCord;
 	GameObject xBox;
@@ -13,6 +13,7 @@ public class WorldMovement : MonoBehaviour {
 	void Start () {
 		xBox = GameObject.Find ("X-Cord");
 		yBox = GameObject.Find ("Y-Cord");
+		cameraBox = GameObject.Find ("CameraBox");
 		GameObject data = GameObject.Find ("World Data Storage");
 		saveData = data.GetComponent<WorldSavedCoordinates> ();
 		xCord = saveData.GetCurrentLocationX();

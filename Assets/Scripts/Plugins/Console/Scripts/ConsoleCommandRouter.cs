@@ -6,6 +6,9 @@ public class ConsoleCommandRouter : MonoBehaviour {
 	DevOptions dev;
 	GameObject console;
 	public GameObject resourceValues;
+	public GameObject troopNumbers;
+	public GameObject window;
+	WindowManager windowManager;
 	ResourceData resourceData;
 	TroopData troopData;
 	// Use this for initialization
@@ -13,22 +16,33 @@ public class ConsoleCommandRouter : MonoBehaviour {
 		console = GameObject.Find ("Console");
 		dev = console.GetComponent<DevOptions>();
 		resourceData = resourceValues.GetComponent<ResourceData> ();
-		troopData = GameObject.Find ("Troop Numbers").GetComponent<TroopData> ();
+		troopData = troopNumbers.GetComponent<TroopData> ();
+		windowManager = window.GetComponent<WindowManager> ();
 		var repo = ConsoleCommandsRepository.Instance;
+		repo.RegisterCommand ("changetroops", ChangeTroops);
+		repo.RegisterCommand ("closewindow", CloseWindow);
 		repo.RegisterCommand ("debug", DebugOn);
 		repo.RegisterCommand ("exit", Exit);
 		repo.RegisterCommand ("foodrate", FoodRate);
 		repo.RegisterCommand("help", Help);
 		repo.RegisterCommand("load", Load);
 		repo.RegisterCommand ("metalrate", MetalRate);
+		repo.RegisterCommand ("openwindow", OpenWindow);
 		repo.RegisterCommand ("stonerate", StoneRate);
-		repo.RegisterCommand ("changetroops", ChangeTroops);
 		repo.RegisterCommand ("woodrate", WoodRate);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	public string CloseWindow (params string[] args){
+		windowManager.CloseWindow ();
+		return "";
+	}
+	public string OpenWindow (params string[] args){
+		windowManager.OpenWindow (args[0]);
+		return "";
 	}
 
 	public string ChangeTroops (params string[] args){
