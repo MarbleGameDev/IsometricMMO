@@ -7,11 +7,13 @@ public class ConsoleCommandRouter : MonoBehaviour {
 	GameObject console;
 	public GameObject resourceValues;
 	ResourceData resourceData;
+	TroopData troopData;
 	// Use this for initialization
 	void Start () {
 		console = GameObject.Find ("Console");
 		dev = console.GetComponent<DevOptions>();
 		resourceData = resourceValues.GetComponent<ResourceData> ();
+		troopData = GameObject.Find ("Troop Numbers").GetComponent<TroopData> ();
 		var repo = ConsoleCommandsRepository.Instance;
 		repo.RegisterCommand ("debug", DebugOn);
 		repo.RegisterCommand ("exit", Exit);
@@ -20,12 +22,57 @@ public class ConsoleCommandRouter : MonoBehaviour {
 		repo.RegisterCommand("load", Load);
 		repo.RegisterCommand ("metalrate", MetalRate);
 		repo.RegisterCommand ("stonerate", StoneRate);
+		repo.RegisterCommand ("changetroops", ChangeTroops);
 		repo.RegisterCommand ("woodrate", WoodRate);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public string ChangeTroops (params string[] args){
+		string troopName;
+		int troopCount;
+		try{
+			troopName = args[0];
+			troopCount = int.Parse(args[1]);
+		} catch (Exception e){
+			return "Invalid Arguements, use troop name followed by number";
+		}
+		switch (troopName){
+		case "Workers":
+		case "workers":
+		case "Worker":
+		case "worker":
+			troopData.ChangeWorkers(troopCount);
+			break;
+		case "Warriors":
+		case "warriors":
+		case "Warrior":
+		case "warrior":
+			troopData.ChangeWarriors(troopCount);
+			break;
+		case "Archers":
+		case "archers":
+		case "Archer":
+		case "archer":
+			troopData.ChangeArchers(troopCount);
+			break;
+		case "Pikemen":
+		case "pikemen":
+		case "Pikeman":
+		case "pikeman":
+			troopData.ChangePikemen(troopCount);
+			break;
+		case "Scouts":
+		case "scouts":
+		case "Scout":
+		case "scout":
+			troopData.ChangeScouts(troopCount);
+			break;
+		}
+		return "Troop Value Changed";
 	}
 
 	public string FoodRate(params string[] args){

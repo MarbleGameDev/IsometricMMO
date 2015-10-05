@@ -6,9 +6,13 @@ public class WorldMovement : MonoBehaviour {
 	public GameObject cameraBox;
 	public int xCord;
 	public int yCord;
+	GameObject xBox;
+	GameObject yBox;
 	WorldSavedCoordinates saveData;
 	// Use this for initialization
 	void Start () {
+		xBox = GameObject.Find ("X-Cord");
+		yBox = GameObject.Find ("Y-Cord");
 		GameObject data = GameObject.Find ("World Data Storage");
 		saveData = data.GetComponent<WorldSavedCoordinates> ();
 		xCord = saveData.GetCurrentLocationX();
@@ -32,15 +36,13 @@ public class WorldMovement : MonoBehaviour {
 		positionMovement ();
 	}
 	public void xChange(){
-		GameObject xBox = GameObject.Find ("X-Cord");
 		InputField input = xBox.GetComponent<InputField> ();
 		if (input.text != null){
 			xCord = int.Parse (input.text);
 		}
 	}
 	public void yChange(){
-		GameObject xBox = GameObject.Find ("Y-Cord");
-		InputField input = xBox.GetComponent<InputField> ();
+		InputField input = yBox.GetComponent<InputField> ();
 		yCord = int.Parse (input.text);
 	}
 }
