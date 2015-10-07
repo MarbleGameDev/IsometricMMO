@@ -9,8 +9,10 @@ public class WorldMovement : MonoBehaviour {
 	GameObject xBox;
 	GameObject yBox;
 	WorldSavedCoordinates saveData;
+	WindowManager window;
 	// Use this for initialization
 	void Start () {
+		window = GameObject.Find ("Window").GetComponent<WindowManager> ();
 		xBox = GameObject.Find ("X-Cord");
 		yBox = GameObject.Find ("Y-Cord");
 		cameraBox = GameObject.Find ("CameraBox");
@@ -27,14 +29,18 @@ public class WorldMovement : MonoBehaviour {
 	}
 
 	public void positionMovement(){
-		Transform cameraTransform = cameraBox.GetComponent<Transform> ();
-		cameraTransform.position = new Vector3(xCord, 1, yCord);
-		saveData.SetCurrentLocation (xCord, yCord);
+		if (window.windowOpen == false) {
+			Transform cameraTransform = cameraBox.GetComponent<Transform> ();
+			cameraTransform.position = new Vector3 (xCord, 1, yCord);
+			saveData.SetCurrentLocation (xCord, yCord);
+		}
 	}
 	public void SetPosition(int x, int y){
 		xCord = x;
 		yCord = y;
-		positionMovement ();
+		Transform cameraTransform = cameraBox.GetComponent<Transform> ();
+		cameraTransform.position = new Vector3(xCord, 1, yCord);
+		saveData.SetCurrentLocation (xCord, yCord);
 	}
 	public void xChange(){
 		InputField input = xBox.GetComponent<InputField> ();

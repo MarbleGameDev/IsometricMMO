@@ -15,7 +15,6 @@ public class WindowCloser : MonoBehaviour {
 	
 	}
 	void click (){
-		Debug.Log ("Click");
 		window.CloseWindow ();
 	}
 }

@@ -1,4 +1,4 @@
 Current Thoughts: each troop has an attack and defense variable. Sum attack and defense for each side. 
-//Calculate attack starting with high range down, killing units for each range tier.
+~Calculate attack starting with high range down, killing units for each range tier.
 Multiply defence by random percentage (between 0 and -5% ?) on each side and then subtract attack from defence.
 If value is negative (should mostly be negative) then divide the new damage value amongst each troop, if damage is more than (10%) of defence, unit is killed.

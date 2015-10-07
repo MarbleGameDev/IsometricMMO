@@ -4,10 +4,12 @@ using System.Collections;
 public class Popup : MonoBehaviour {
 	public static int WindowType = 0; 	//1 for resources, 2 for troops, 3 for notifications, 0 for nothing
 	GameObject resources, troops, notifications;
+	WindowManager window;
 	void Start () {
 		resources = GameObject.Find ("Resources");
 		troops = GameObject.Find ("Troops");
 		notifications = GameObject.Find ("Notifications");
+		window = GameObject.Find ("Window").GetComponent<WindowManager> ();
 		Visibility ();
 	}
 	
@@ -16,12 +18,14 @@ public class Popup : MonoBehaviour {
 	
 	}
 	public void SwitchWindowType (int x){
-		if (WindowType == x) {
-			WindowType = 0;
-		} else {
-			WindowType = x;
+		if (window.windowOpen == false) {
+			if (WindowType == x) {
+				WindowType = 0;
+			} else {
+				WindowType = x;
+			}
+			Visibility ();
 		}
-		Visibility ();
 
 	}
 	public int GetWindowType(){

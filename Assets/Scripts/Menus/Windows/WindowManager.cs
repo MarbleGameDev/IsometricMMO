@@ -6,6 +6,7 @@ public class WindowManager : MonoBehaviour {
 	Transform newWindow;
 	string currentWindowName;
 	public Transform devTroopWindow;
+	public bool windowOpen = false;
 	// Use this for initialization
 	void Start () {
 	
@@ -16,6 +17,7 @@ public class WindowManager : MonoBehaviour {
 	
 	}
 	public void OpenWindow(string name){
+		windowOpen = true;
 		currentWindowName = name;
 		switch (name) {
 		case "devTroopWindow":
@@ -25,6 +27,7 @@ public class WindowManager : MonoBehaviour {
 		}
 	}
 	public void CloseWindow(){
+		windowOpen = false;
 		Destroy(GameObject.Find (currentWindowName + "(Clone)"));
 	}
 }

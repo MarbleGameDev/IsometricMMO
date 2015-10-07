@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class EnvironmentType : MonoBehaviour {
-	public int worldType; 	//0 is map, 1 is city, 2 is village
+	public static int worldType; 	//0 is map, 1 is city, 2 is village
+	WindowManager window;
 	// Use this for initialization
 	void Start () {
-	
+		window = GameObject.Find ("Window").GetComponent<WindowManager> ();
 	}
 	
 	// Update is called once per frame
@@ -14,6 +15,8 @@ public class EnvironmentType : MonoBehaviour {
 	}
 
 	public void ChangeWorld(int i){
-		Application.LoadLevel (i);
+		if (window.windowOpen == false) {
+			Application.LoadLevel (i);
+		}
 	}
 }
